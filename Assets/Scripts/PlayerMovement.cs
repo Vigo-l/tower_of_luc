@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class PlayerMovement : MonoBehaviour
@@ -8,14 +6,24 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField] private Transform cameraTransform;
     [SerializeField] private float mouseSensitivity = 2f;
 
+    Camera c;
+
     private CharacterController controller;
     private Vector3 playerVelocity;
+
+    [Header("Interaction")]
+    [SerializeField] private Vector3 interactionRayPoint = default;
+    [SerializeField] private float interactionDistance = default;
+    [SerializeField] private LayerMask interactionLayer = default;
+    private Interactable currentInteractable;
+    [SerializeField] private KeyCode interactKey = KeyCode.E;
 
     private void Start()
     {
         controller = GetComponent<CharacterController>();
 
         Cursor.lockState = CursorLockMode.Locked;
+        c = cameraTransform.GetComponent<Camera>();
     }
 
     private void Update()
@@ -39,5 +47,37 @@ public class PlayerMovement : MonoBehaviour
 
         desiredRotationX = Mathf.Clamp(desiredRotationX, -90f, 90f);
         cameraTransform.rotation = Quaternion.Euler(desiredRotationX, currentRotation.y, currentRotation.z);
+        HandleInteractionInput();
+        HandleInteractionCheck();
+
+
+    }
+
+    private void HandleInteractionCheck()
+    {
+        if (Physics.Raycast(c.ViewportPointToRay(interactionRayPoint), out RaycastHit hit, interactionDistance))
+        {
+            if (hit.collider.gameObject.layer == 8 && (currentInteractable == null || hit.collider.gameObject.GetInstanceID() != currentInteractable.GetInstanceID()))
+            {
+                hit.collider.TryGetComponent(out currentInteractable);
+
+                if (currentInteractable)
+                {
+                    currentInteractable.OnFocus();
+                }
+            } // x1 position
+        }
+        else if (currentInteractable) //this should be also in the x1 position otherwise the OnLoseFocus() would only apply when you look at nothing
+        {
+            currentInteractable.OnLoseFocus();
+            currentInteractable = null;
+        }
+    }
+    private void HandleInteractionInput()
+    {
+        if (Input.GetKeyDown(interactKey) && currentInteractable != null && Physics.Raycast(c.ViewportPointToRay(interactionRayPoint), out RaycastHit hit, interactionDistance, interactionLayer))
+        {
+            currentInteractable.OnInteract();
+        }
     }
 }
