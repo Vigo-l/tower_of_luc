@@ -15,9 +15,9 @@ public class BoxCheckerScript : MonoBehaviour
 
     }
 
-    private void OnCollisionEnter(Collision collision)
+    private void OnTriggerEnter(Collider other)
     {
-        if (collision.gameObject.CompareTag("HelpCube"))
+        if (other.gameObject.CompareTag("HelpCube"))
         {
             doorDoor.SetActive(false);
         }
