@@ -8,6 +8,10 @@ public class ButtonInteract : Interactable
     public GameObject playercamera;
     public Animation dooranimate;
     public AnimationClip dooranimation;
+    public AudioSource doorSound;
+
+    private bool hasBeenTriggered = false;
+
     public override void OnFocus()
     {
         Debug.Log("meneer focus");
@@ -15,12 +19,19 @@ public class ButtonInteract : Interactable
 
     public override void OnInteract()
     {
-        doorcamera.SetActive(true);
+        if (!hasBeenTriggered)
+        {
+            doorcamera.SetActive(true);
 
 
-        dooranimate.Play();
-        StartCoroutine(DoorANIMATION());
-
+            dooranimate.Play();
+            doorSound.Play();
+            StartCoroutine(DoorANIMATION());
+        }
+        else
+        {
+            return;
+        }
 
     }
 
