@@ -10,6 +10,7 @@ public class BoxCheckerScript : MonoBehaviour
     public GameObject playercamera;
     private Animation dooranimate;
     public AnimationClip dooranimation;
+    public AudioSource doorSound;
 
     public bool playAnimation;
 
@@ -44,6 +45,7 @@ public class BoxCheckerScript : MonoBehaviour
                 dooranimate.Play();
                 StartCoroutine(DoorANIMATION());
                 animationPlayed = true;
+                doorSound.Play();
 
             }
         }
