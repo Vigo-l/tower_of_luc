@@ -40,7 +40,7 @@ namespace Project.Shaders.AsciiImageEffect
 		[field: SerializeField]
 		private bool Fog { get; set; } = false;
 		[field: SerializeField, Range(0f, 0.25f)]
-		private float FogDensity { get; set; } = .08f;
+		public float FogDensity { get; set; } = .08f;
 		[field: SerializeField]
 		private Color FogColor { get; set; } = Color.black;
 
