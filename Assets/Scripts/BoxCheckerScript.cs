@@ -8,10 +8,12 @@ public class BoxCheckerScript : MonoBehaviour
     public GameObject lockedDoor;
     public GameObject doorcamera;
     public GameObject playercamera;
-    public Animation dooranimate;
+    private Animation dooranimate;
     public AnimationClip dooranimation;
 
     public bool playAnimation;
+
+    public bool animationPlayed;
 
     // Start is called before the first frame update
     void Start()
@@ -25,15 +27,25 @@ public class BoxCheckerScript : MonoBehaviour
 
     }
 
+    private void Awake()
+    {
+        dooranimate = lockedDoor.GetComponent<Animation>();
+    }
+
     private void OnTriggerEnter(Collider other)
     {
         if (playAnimation)
         {
-            doorcamera.SetActive(true);
+            if (!animationPlayed)
+            {
+                doorcamera.SetActive(true);
 
 
-            dooranimate.Play();
-            StartCoroutine(DoorANIMATION());
+                dooranimate.Play();
+                StartCoroutine(DoorANIMATION());
+                animationPlayed = true;
+
+            }
         }
         else
         {
