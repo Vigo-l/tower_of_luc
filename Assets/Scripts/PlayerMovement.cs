@@ -16,7 +16,6 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField] private float interactionDistance = default;
     [SerializeField] private LayerMask interactionLayer = default;
     private Interactable currentInteractable;
-    [SerializeField] private KeyCode interactKey = KeyCode.E;
 
     private void Start()
     {
@@ -75,7 +74,7 @@ public class PlayerMovement : MonoBehaviour
     }
     private void HandleInteractionInput()
     {
-        if (Input.GetKeyDown(interactKey) && currentInteractable != null && Physics.Raycast(c.ViewportPointToRay(interactionRayPoint), out RaycastHit hit, interactionDistance, interactionLayer))
+        if (Input.GetButtonDown("Fire1") && currentInteractable != null && Physics.Raycast(c.ViewportPointToRay(interactionRayPoint), out RaycastHit hit, interactionDistance, interactionLayer))
         {
             currentInteractable.OnInteract();
         }
