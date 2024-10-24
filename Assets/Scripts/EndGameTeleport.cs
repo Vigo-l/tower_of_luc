@@ -11,5 +11,9 @@ public class EndGameTeleport : MonoBehaviour
         {
             SceneManager.LoadScene("EndScene");
         }
+        else if (other.gameObject.CompareTag("Pear"))
+        {
+            SceneManager.LoadScene("EndScene1");
+        }
     }
 }

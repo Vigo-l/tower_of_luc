@@ -12,6 +12,8 @@ public class IntegralePickup : MonoBehaviour
 
     [SerializeField] GameObject hiddenDoor;
 
+    [SerializeField] GameObject triggers;
+
     private void OnTriggerEnter(Collider other)
     {
         if (other.gameObject.CompareTag("Player"))
@@ -28,6 +30,7 @@ public class IntegralePickup : MonoBehaviour
             glitchMusic.SetActive(true); 
             
             Destroy(hiddenDoor); // destroy the light emmiting from the integrale, the integrale and open the door to the ending
+            Destroy(triggers);
             Destroy(gameObject);
         }
     }
