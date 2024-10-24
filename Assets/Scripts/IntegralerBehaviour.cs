@@ -6,11 +6,11 @@ using UnityEngine.SceneManagement;
 public class IntegralerBehaviour : MonoBehaviour
 {
     [SerializeField] GameObject target;
-    public float speed = 2.5f;
+    public float speed = 3f;
 
     private void Awake()
     {
-        speed = 2.5f;
+        speed = 3f;
     }
 
     private void Update() //chase player
