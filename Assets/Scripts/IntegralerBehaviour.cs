@@ -6,11 +6,11 @@ using UnityEngine.SceneManagement;
 public class IntegralerBehaviour : MonoBehaviour
 {
     [SerializeField] GameObject target;
-    public float speed = 3f;
+    public float speed = 2.5f;
 
     private void Awake()
     {
-        speed = 3f;
+        speed = 2.5f;
     }
 
     private void Update() //chase player
@@ -19,10 +19,11 @@ public class IntegralerBehaviour : MonoBehaviour
         transform.LookAt(target.transform);
     }
 
-    private void OnCollisionEnter2D(Collision2D collision)
+    private void OnTriggerEnter(Collider other)
     {
-        if (collision.gameObject.CompareTag("Player"))
+        if (other.gameObject.CompareTag("Player"))
         {
+            Debug.Log("collided with player");
             SceneManager.LoadScene("DeathScene");
         }
     }
