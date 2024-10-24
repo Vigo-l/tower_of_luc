@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Xml;
 using TMPro;
 using UnityEngine;
 
@@ -60,6 +61,14 @@ public class Grabbable : MonoBehaviour
             float lerpSpeed = 10f;
             Vector3 newPosition = Vector3.Lerp(transform.position, grabPointTransform.position, Time.deltaTime * lerpSpeed);
             objectRB.MovePosition(grabPointTransform.position);
+        }
+    }
+
+    private void OnTriggerEnter(Collider other)
+    {
+        if (other.gameObject.CompareTag("PuzzleEnd"))
+        {
+            Drop();
         }
     }
 }

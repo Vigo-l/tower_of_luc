@@ -10,6 +10,9 @@ public class Sinaasappel : MonoBehaviour
     public AnimationClip dooranimation;
     public AudioSource doorSound;
 
+    [SerializeField] private AudioSource correctSource;
+    [SerializeField] private AudioSource failSource;
+
 
     private bool hasBeenTriggered = false;
 
@@ -20,6 +23,7 @@ public class Sinaasappel : MonoBehaviour
         if (other.gameObject.CompareTag("Sinaasappel"))
         {
             Debug.Log("Sinaasappel eten");
+            correctSource.Play();
             other.gameObject.SetActive(false);
             if (!hasBeenTriggered)
             {
@@ -41,6 +45,7 @@ public class Sinaasappel : MonoBehaviour
         {
 
             other.gameObject.transform.position = FruitSpawn.transform.position;
+            failSource.Play();
         }
 
     }
