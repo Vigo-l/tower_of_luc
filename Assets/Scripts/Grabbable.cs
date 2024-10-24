@@ -62,10 +62,4 @@ public class Grabbable : MonoBehaviour
             objectRB.MovePosition(grabPointTransform.position);
         }
     }
-
-    private void OnCollisionEnter(Collision collision)
-    {
-        if(!collision.gameObject.CompareTag("Floor"))
-            Drop();
-    }
 }

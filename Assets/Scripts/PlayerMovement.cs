@@ -32,7 +32,7 @@ public class PlayerMovement : MonoBehaviour
         Vector3 move = transform.right * horizontal + transform.forward * vertical;
         controller.Move(move * walkSpeed * Time.deltaTime);
 
-        playerVelocity.y += Physics.gravity.y * Time.deltaTime; //gravity
+        playerVelocity.y += Physics.gravity.y / 5 * Time.deltaTime; //gravity
         controller.Move(playerVelocity * Time.deltaTime);
 
         float mouseX = Input.GetAxis("Mouse X") * mouseSensitivity; //camera control
