@@ -17,6 +17,8 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField] private LayerMask interactionLayer = default;
     private Interactable currentInteractable;
 
+    [SerializeField] int playerGravity = 2;
+
     private void Start()
     {
         controller = GetComponent<CharacterController>();
@@ -32,7 +34,10 @@ public class PlayerMovement : MonoBehaviour
         Vector3 move = transform.right * horizontal + transform.forward * vertical;
         controller.Move(move * walkSpeed * Time.deltaTime);
 
-        playerVelocity.y += Physics.gravity.y / 5 * Time.deltaTime; //gravity
+        if (controller.isGrounded)
+            playerVelocity.y = 0;
+
+        playerVelocity.y -= playerGravity * Time.deltaTime; //gravity
         controller.Move(playerVelocity * Time.deltaTime);
 
         float mouseX = Input.GetAxis("Mouse X") * mouseSensitivity; //camera control
